@@ -1,0 +1,89 @@
+:root {
+  --textColor: hsl(0, 0%, 95%);
+  --primaryColor: hsl(0, 0%, 10%);
+  --secondaryColor: hsl(0, 0%, 15%);
+  --accentColor: hsl(250, 50%, 50%);
+  --spacing: 1rem;
+  --transition: all 0.99s cubic-bezier(0, 0, 0.1, 1);
+  --border-radius: 16px;
+}
+
+body {
+  background-color: var(--primaryColor);
+  color: var(--textColor);
+  font-family: system-ui;
+  text-align: center;
+  margin: 0;
+}
+
+input {
+  width: 50%;
+  background: 0;
+  border: 0;
+  outline: 0;
+  border-bottom: 1px var(--accentColor) solid;
+  color: inherit;
+  font: inherit;
+  padding: var(--spacing);
+}
+
+select {
+  background: 0;
+  border: 0;
+  outline: 0;
+  border-bottom: 1px var(--accentColor) solid;
+  color: inherit;
+  font: inherit;
+  padding: var(--spacing);
+  background-color: var(--primaryColor);
+}
+
+main {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 300px));
+  place-content: center;
+  gap: var(--spacing);
+  padding: var(--spacing);
+}
+
+article {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--border-radius);
+  background-color: var(--secondaryColor);
+  filter: blur(0);
+  position: relative;
+  bottom: 0;
+  transition: var(--transition);
+
+  @starting-style {
+    filter: blur(50px);
+    position: relative;
+    bottom:-100%;
+  }
+}
+
+article:hover {
+  background-color: var(--accentColor);
+}
+
+a {
+  color: inherit;
+  flex-grow: 1;
+  padding: var(--spacing);
+}
+
+.productIMG {
+  object-fit: contain;
+  width: auto;
+  height: 250px;
+  background-color: white;
+  border-radius: 16px 16px 0 0;
+  padding: var(--spacing);
+}
+
+.flag {
+  width: 50px;
+  height: 50px;
+  place-self: center;
+}

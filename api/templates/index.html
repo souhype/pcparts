@@ -1,0 +1,49 @@
+{{block "index" .}}
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <meta name="description" content="Content" />
+      <link rel="stylesheet" href="/style.css" />
+      <title>Products</title>
+   </head>
+   <body>
+      <h1>Amazon Europe - PC Components & Monitors From Euro Regions</h1>
+      <p>Compare the prices of bestselling Amazon Products</p>
+      <p>Total Products: <i>{{.Count}}</i> - Last Updated: <i>{{.Timestamp}}</i></p>
+      <form name="form" hx-get="/?template=products" hx-target="main" hx-trigger="input changed delay:500ms, search">
+         <input
+         type="search"
+         placeholder="Search By Keywords: '1tb nvme'"
+         name="search"
+         />
+         <select name="order">
+            <option selected value="price ASC">Price: New Ascending</option>
+            <option value="usedPrice ASC">Price: Used Ascending</option>
+            <option value="save DESC">Save Descending</option>
+         </select>
+      </form>
+      <main>
+         {{block "products" .}} {{range $index, $item := .Products}} {{if eq $index 19}}
+         <article hx-get="/?offset={{$item.ID}}&template=products" hx-swap="afterend" hx-trigger="revealed"
+            hx-include="[name='form']">
+         {{else}}
+         <article>
+            {{end}}
+            <img class="productIMG" src="/imgs/products/{{$item.Name}}.jpg" />
+            <a href="{{$item.Url}}" target="_blank"><strong>{{$item.Title}}</strong></a>
+            <img alt="{{$item.Region}}.png" class="flag" src="/imgs/flags/{{$item.Region}}.png" />
+            <span>New <strong class="price" data-price="{{$item.Price}}">{{$item.Price}} €</strong></span>
+            <span>Used <strong class="price" data-price="{{$item.UsedPrice}}">{{$item.UsedPrice}} €</strong></span>
+            <span>Save <strong>{{$item.Save}} %</strong></span>
+            <br/>
+         </article>
+         {{end}} {{end}}
+      </main>
+      <p><small>This website is not affiliated with, endorsed by, or sponsored by Amazon.com, Inc. or any of its subsidiaries. All product names, logos, and brands are property of their respective owners. No commision is paid on any sale.</small></p>
+      <script src="/htmx.js"></script>
+      <script src="/script.js"></script>
+   </body>
+</html>
+{{end}}
